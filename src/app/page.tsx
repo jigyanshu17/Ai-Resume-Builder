@@ -1,9 +1,11 @@
 
+import Navbar from "./(root)/_components/Navbar";
 export default function Home() {
+   
   return (
     <div>
       
-      <header className="bg-gray-900 text-white py-6">
+      {/* <header className="bg-gray-900 text-white py-6">
         <nav className="container mx-auto flex justify-between">
           <h1 className="text-xl font-bold">AI Resume Builder</h1>
           <ul className="flex space-x-4">
@@ -12,8 +14,8 @@ export default function Home() {
             <li><a href="#contact" className="hover:text-gray-400">Contact</a></li>
           </ul>
         </nav>
-      </header>
-
+      </header> */}
+     <Navbar/>
       <main className="container mx-auto py-12">
         {/* Hero Section */}
         <section className="text-center py-20">
