@@ -1,7 +1,9 @@
+import { ClerkProvider, ClerkLoading, ClerkLoaded } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-
+import Navbar from "../app/(root)/_components/Navbar";
+import Loader from "../app/(root)/_components/Loader";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -24,12 +26,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <ClerkLoading>
+            <div className="flex items-center justify-center h-screen text-2xl">
+              <Loader />
+            </div>
+          </ClerkLoading>
+          <ClerkLoaded>
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow ">{children}</main>
+            </div>
+          </ClerkLoaded>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

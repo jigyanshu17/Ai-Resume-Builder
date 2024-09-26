@@ -1,30 +1,107 @@
-import Link from 'next/link';
+import { UserButton } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
-const Navbar = () => {
+import Link from "next/link";
+
+const Navbar = async () => {
+  const { userId } = auth();
+  const user = await currentUser();
   return (
-    <nav className="bg-white/30 backdrop-blur-md w-full fixed top-0 z-50">
+    <nav className="bg-white/30 backdrop-blur-md w-full fixed top-0 z-50 ">
       <div className="max-w-6xl mx-auto px-4 ">
         <div className="flex justify-between">
-          <div className="flex space-x-4">
+          <div className="flex justify-center items-center">
             {/* logo */}
-            <div>
-              <Link href="/" className="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
-                <svg className="h-6 w-6 mr-1 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            <div className="flex space-x-7">
+              <Link href="/" className="flex items-center py-4 px-2">
+                <svg
+                  className="h-8 w-8 mr-2"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12 2L2 7L12 12L22 7L12 2Z"
+                    stroke="#4F46E5"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 17L12 22L22 17"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M2 12L12 17L22 12"
+                    stroke="#FF6600"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
-                <span className="font-bold">Better Dev</span>
+                <span className="font-bold text-gray-90000 text-2xl">
+                  SkillEngine AI
+                </span>
               </Link>
             </div>
-            {/* primary nav */}
-            <div className="hidden md:flex items-center space-x-1">
-              <Link href="/features" className="py-5 px-3 text-gray-700 hover:text-gray-900">Features</Link>
-              <Link href="/pricing" className="py-5 px-3 text-gray-700 hover:text-gray-900">Pricing</Link>
-            </div>
+
+            {/* dashboard button in the center */}
+            {/* <div className="flex items-center space-x-1">
+              <Link
+                href="/dashboard"
+                className="relative py-2 px-6 text-white bg-blue-600 hover:bg-blue-700 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center"
+              >
+                Dashboard
+                <svg
+                  className="h-6 w-6 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M3 3h18M3 9h18M9 15h6M4 21h16"
+                  />
+                </svg>
+              </Link>
+            </div> */}
           </div>
+
           {/* secondary nav */}
-          <div className="flex items-center space-x-1">
-            <Link href="/login" className="py-5 px-3 text-black font-bold">Login</Link>
-            <Link href="/signup" className="py-2 px-3 bg-yellow-400 hover:bg-yellow-300 text-yellow-900 hover:text-yellow-800 rounded transition duration-300">Signup</Link>
+          <div className="flex items-center space-x-4">
+            {!userId ? (
+              <>
+                <Link
+                  href="/sign-in"
+                  className="py-2 px-4 text-black font-sans bg-gray-100 rounded-xl hover:bg-gray-300  shadow-md transition-all duration-300 ease-in-out transform hover:scale-105"
+                >
+                  Log in
+                </Link>
+
+                {/* Signup Button */}
+                <Link
+                  href="/sign-up"
+                  className="py-2 px-6 text-white bg-black hover:bg-[#FF6600] rounded-xl shadow-md transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center"
+                >
+                  Signup
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link href="/profile" className="py-5 px-3">
+                  {user?.username}
+                </Link>
+                <li className="flex items-center">
+                  <UserButton />
+                </li>
+              </>
+            )}
           </div>
         </div>
       </div>
