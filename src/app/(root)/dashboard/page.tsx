@@ -21,13 +21,13 @@ const Dashboard = () => {
   }, []);
 
   return (
-    <div className=" mt-16 bg-black py-10">
+    <div className=" mt-16  py-10">
       <div className="container mx-auto px-4">
+        <div className="text-center mb-6 flex justify-between">
         <h2 className="text-3xl font-bold text-center mb-6">Your Resumes</h2>
 
         {/* Action to create a new resume */}
-        <div className="text-center mb-6">
-          <Link href="/resume/create">
+          <Link href="/resume">
             <div className="bg-blue-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-blue-700">Create New Resume</div>
           </Link>
         </div>

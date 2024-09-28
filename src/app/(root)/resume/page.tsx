@@ -98,7 +98,7 @@ const Step4 = ({ prevStep }:{prevStep:()=>void}) => {
         <input type="text" placeholder="Skill 3" className="w-full mb-4 p-3 border rounded-lg" />
         <div className="flex justify-between">
           <button type="button" onClick={prevStep} className="bg-gray-400 text-white px-6 py-3 rounded-lg">Back</button>
-          <button type="submit" className="bg-green-600 text-white px-6 py-3 rounded-lg">Finish & Generate PDF</button>
+          <button type="submit" className="bg-green-600 text-white px-6 py-3 rounded-lg">Finish </button>
         </div>
       </form>
     </div>
