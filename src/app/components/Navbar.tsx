@@ -6,8 +6,6 @@ import Link from "next/link";
 const Navbar = async () => {
   const { userId } = auth();
   const user = await currentUser();
-  console.log("1"+userId);
-  console.log("12"+user);
   
   return (
     <nav className="bg-blue-100 backdrop-blur-md w-full fixed top-0 z-50 px-5 py-2">
@@ -73,10 +71,10 @@ const Navbar = async () => {
           ) : (
             <>
               {/* dashboard button in the center */}
-              <div className="flex items-center space-x-1">
+              <div className="flex items-center space-x-3">
                 <Link
                   href="/dashboard"
-                  className="relative py-2 px-6 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center"
+                  className="relative py-2 px-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-3"
                 >
                   Dashboard
                   <svg
