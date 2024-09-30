@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 interface Resume {
-  id: string;
+  _id: string; // Change id to _id
   title: string;
   createdAt: string;
 }
@@ -31,14 +31,14 @@ const Dashboard = () => {
     fetchResumes();
   }, []);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (_id: string) => { // Use _id as parameter
     if (confirm('Are you sure you want to delete this resume?')) {
       try {
-        const res = await fetch(`/api/resumes/${id}`, { method: 'DELETE' });
+        const res = await fetch(`/api/resumes/${_id}`, { method: 'DELETE' }); // Use _id in the URL
         if (!res.ok) {
           throw new Error(`Failed to delete resume: ${res.statusText}`);
         }
-        setResumes((prevResumes) => prevResumes.filter((resume) => resume.id !== id)); // Remove the deleted resume from the state
+        setResumes((prevResumes) => prevResumes.filter((resume) => resume._id !== _id)); // Remove the deleted resume from the state
       } catch (err) {
         console.error('Error deleting resume:', err);
         alert('Failed to delete the resume. Please try again.');
@@ -66,23 +66,19 @@ const Dashboard = () => {
         ) : resumes?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
             {resumes.map((resume, index) => (
-              <div key={resume.id} className="bg-white shadow-lg rounded-lg p-6 border-2 border-blue-500">
+              <div key={resume._id} className="bg-white shadow-lg rounded-lg p-6 border-2 border-blue-500">
                 <h3 className="text-xl font-semibold mb-4">{resume.title || `Resume ${index + 1}`}</h3>
                 <p className="text-gray-600 mb-4">
                   Created on: {new Date(resume.createdAt).toLocaleDateString()}
                 </p>
                 <div className="flex space-x-4">
                   {/* View Resume */}
-                  <Link href={`/resume/${resume.id}`}>
+                  <Link href={`/resume/view/${resume._id}`}>
                     <div className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">View</div>
-                  </Link>
-                  {/* Edit Resume */}
-                  <Link href={`/resume/edit/${resume.id}`}>
-                    <div className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600">Edit</div>
                   </Link>
                   {/* Delete Resume */}
                   <button
-                    onClick={() => handleDelete(resume.id)}
+                    onClick={() => handleDelete(resume._id)} // Pass _id to handleDelete
                     className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
                   >
                     Delete
